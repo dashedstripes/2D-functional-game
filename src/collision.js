@@ -21,8 +21,7 @@ function enableCanvasBoundsCollision(context, sprite) {
 function enableCollision(spriteA, spriteB) {
 
   if(isColliding(spriteA, spriteB)) {
-    spriteA.vx = 0
-    spriteA.vy = 0
+    spriteA.y = spriteB.y - (spriteA.height + (spriteA.vy / 100))
   }
 
 }

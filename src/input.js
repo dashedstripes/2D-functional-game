@@ -14,64 +14,43 @@ function registerInputListeners(sprite) {
   document.addEventListener('keyup', handleKeyUp.bind(this, sprite))
 }
 
-function isKeyDown(key) {
-  return pressed[key]
-}
-
 function handleKeyDown(sprite, e) {
-
+  // if(keyDown) { return }
   keyDown = true
-
-  if(keyDown) {
-    
-    pressed[e.keyCode] = true;
-
-    if(pressed[keys.w]) {
+  
+  switch(e.keyCode) {
+    case keys.w:
       sprite.vy = -sprite.speed
-    }
-
-    if(pressed[keys.a]) {
+      break
+    case keys.a:
       sprite.vx = -sprite.speed
-    }
-
-    if(pressed[keys.s]) {
+      break
+    case keys.s:
       sprite.vy = sprite.speed
-    }
-
-    if(pressed[keys.d]) {
+      break
+    case keys.d:
       sprite.vx = sprite.speed
-    }
-
+      break
   }
-
 }
 
 function handleKeyUp(sprite, e) {
-
   keyDown = false
 
-  if(!keyDown) {
-
-    if(pressed[keys.w]) {
+  switch(e.keyCode) {
+    case keys.w:
       sprite.vy = 0
-    }
-
-    if(pressed[keys.a]) {
+      break
+    case keys.a:
       sprite.vx = 0
-    }
-
-    if(pressed[keys.s]) {
+      break
+    case keys.s:
       sprite.vy = 0
-    }
-
-    if(pressed[keys.d]) {
+      break
+    case keys.d:
       sprite.vx = 0
-    }
-
-    pressed[e.keyCode] = false
-
+      break
   }
-
 }
 
 module.exports = {

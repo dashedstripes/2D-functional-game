@@ -103,7 +103,7 @@ function init(width, height) {
   };sprites.sky.rigidBody = false;
 
   // Enable gravity on player
-  // sprites.player.physics = true
+  sprites.player.physics = true;
   // sprites.block.physics = true
 
   (0, _input.registerInputListeners)(sprites.player);
@@ -128,7 +128,6 @@ function update(context, sprites) {
   (0, _collision.enableCollision)(sprites.player, sprites.ground);
   (0, _collision.enableCollision)(sprites.player, sprites.block);
   (0, _collision.enableCollision)(sprites.player, sprites.block2);
-  (0, _collision.enableCollision)(sprites.block, sprites.ground);
 }
 
 function render(context, sprites) {
@@ -255,59 +254,42 @@ function registerInputListeners(sprite) {
   document.addEventListener('keyup', handleKeyUp.bind(this, sprite));
 }
 
-function isKeyDown(key) {
-  return pressed[key];
-}
-
 function handleKeyDown(sprite, e) {
-
+  // if(keyDown) { return }
   keyDown = true;
 
-  if (keyDown) {
-
-    pressed[e.keyCode] = true;
-
-    if (pressed[keys.w]) {
+  switch (e.keyCode) {
+    case keys.w:
       sprite.vy = -sprite.speed;
-    }
-
-    if (pressed[keys.a]) {
+      break;
+    case keys.a:
       sprite.vx = -sprite.speed;
-    }
-
-    if (pressed[keys.s]) {
+      break;
+    case keys.s:
       sprite.vy = sprite.speed;
-    }
-
-    if (pressed[keys.d]) {
+      break;
+    case keys.d:
       sprite.vx = sprite.speed;
-    }
+      break;
   }
 }
 
 function handleKeyUp(sprite, e) {
-
   keyDown = false;
 
-  if (!keyDown) {
-
-    if (pressed[keys.w]) {
+  switch (e.keyCode) {
+    case keys.w:
       sprite.vy = 0;
-    }
-
-    if (pressed[keys.a]) {
+      break;
+    case keys.a:
       sprite.vx = 0;
-    }
-
-    if (pressed[keys.s]) {
+      break;
+    case keys.s:
       sprite.vy = 0;
-    }
-
-    if (pressed[keys.d]) {
+      break;
+    case keys.d:
       sprite.vx = 0;
-    }
-
-    pressed[e.keyCode] = false;
+      break;
   }
 }
 
@@ -344,8 +326,7 @@ function enableCanvasBoundsCollision(context, sprite) {
 function enableCollision(spriteA, spriteB) {
 
   if (isColliding(spriteA, spriteB)) {
-    spriteA.vx = 0;
-    spriteA.vy = 0;
+    spriteA.y = spriteB.y - (spriteA.height + spriteA.vy / 100);
   }
 }
 

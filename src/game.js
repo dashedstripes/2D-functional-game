@@ -19,7 +19,7 @@ function init(width, height) {
   sprites.sky.rigidBody = false
 
   // Enable gravity on player
-  // sprites.player.physics = true
+  sprites.player.physics = true
   // sprites.block.physics = true
 
   registerInputListeners(sprites.player)
@@ -44,7 +44,6 @@ function update(context, sprites) {
   enableCollision(sprites.player, sprites.ground)
   enableCollision(sprites.player, sprites.block)
   enableCollision(sprites.player, sprites.block2)
-  enableCollision(sprites.block, sprites.ground)
 
 }
 
