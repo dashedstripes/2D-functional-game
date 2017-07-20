@@ -20,10 +20,6 @@ function isKeyDown(key) {
 
 function handleKeyDown(sprite, e) {
 
-  if(keyDown) {
-    return
-  }
-
   keyDown = true
 
   if(keyDown) {

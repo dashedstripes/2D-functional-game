@@ -84,9 +84,9 @@ var _canvas = __webpack_require__(2);
 
 var _sprite = __webpack_require__(3);
 
-var _input = __webpack_require__(4);
+var _input = __webpack_require__(5);
 
-var _collision = __webpack_require__(5);
+var _collision = __webpack_require__(6);
 
 function init(width, height) {
   var canvas = (0, _canvas.createCanvas)(width, height);
@@ -184,7 +184,7 @@ module.exports = {
 "use strict";
 
 
-var _physics = __webpack_require__(6);
+var _physics = __webpack_require__(4);
 
 function createSprite(x, y, width, height, speed, color) {
   return {
@@ -228,6 +228,22 @@ module.exports = {
 "use strict";
 
 
+function enableGravity(sprite) {
+  var gravity = 0.1;
+  sprite.vy += gravity;
+}
+
+module.exports = {
+  enableGravity: enableGravity
+};
+
+/***/ }),
+/* 5 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
 var keyDown = false;
 
 var pressed = [];
@@ -249,10 +265,6 @@ function isKeyDown(key) {
 }
 
 function handleKeyDown(sprite, e) {
-
-  if (keyDown) {
-    return;
-  }
 
   keyDown = true;
 
@@ -309,7 +321,7 @@ module.exports = {
 };
 
 /***/ }),
-/* 5 */
+/* 6 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -343,22 +355,6 @@ function isColliding(spriteA, spriteB) {
 module.exports = {
   enableCanvasBoundsCollision: enableCanvasBoundsCollision,
   isColliding: isColliding
-};
-
-/***/ }),
-/* 6 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-function enableGravity(sprite) {
-  var gravity = 0.1;
-  sprite.vy += gravity;
-}
-
-module.exports = {
-  enableGravity: enableGravity
 };
 
 /***/ })
