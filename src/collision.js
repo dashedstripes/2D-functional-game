@@ -18,6 +18,15 @@ function enableCanvasBoundsCollision(context, sprite) {
   
 }
 
+function enableCollision(spriteA, spriteB) {
+
+  if(isColliding(spriteA, spriteB)) {
+    spriteA.vx = 0
+    spriteA.vy = 0
+  }
+
+}
+
 function isColliding(spriteA, spriteB) {
   if (spriteA.x <= spriteB.x + spriteB.width &&
    spriteA.x + spriteA.width >= spriteB.x &&
@@ -29,5 +38,6 @@ function isColliding(spriteA, spriteB) {
 
 module.exports = {
   enableCanvasBoundsCollision,
+  enableCollision,
   isColliding
 }

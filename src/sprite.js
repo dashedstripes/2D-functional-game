@@ -10,7 +10,8 @@ function createSprite(x, y, width, height, speed, color) {
     width,
     height,
     color,
-    physics: false
+    physics: false,
+    rigidBody: true
   }
 }
 

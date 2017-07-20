@@ -1,7 +1,7 @@
 import { createCanvas, getContext } from './canvas'
 import { createSprite, updateSprite, renderSprite } from './sprite'
 import { registerInputListeners } from './input'
-import { enableCanvasBoundsCollision, isColliding } from './collision'
+import { enableCanvasBoundsCollision, isColliding, enableCollision } from './collision'
 
 function init(width, height) {
   let canvas = createCanvas(width, height)
@@ -12,11 +12,15 @@ function init(width, height) {
     ground: createSprite(0, canvas.height - 100, canvas.width, 100, 0, '#2ecc71'),
     block: createSprite(canvas.width / 2 - 100, canvas.height / 2 - 50, 50, 50, 0, 'yellow'),
     block2: createSprite(canvas.width / 2 - 0, canvas.height / 2 + 60, 50, 50, 0, 'yellow'),
-    player: createSprite(canvas.width / 2 - 10, canvas.height / 2 - 10, 10, 10, 5, '#e74c3c')
+    player: createSprite(canvas.width / 2 - 10, 400 - 40, 10, 10, 5, '#e74c3c')
   }
 
+  // Disable rigidbody on sky
+  sprites.sky.rigidBody = false
+
   // Enable gravity on player
-  sprites.player.physics = true
+  // sprites.player.physics = true
+  // sprites.block.physics = true
 
   registerInputListeners(sprites.player)
 
@@ -37,20 +41,10 @@ function update(context, sprites) {
 
   enableCanvasBoundsCollision(context, sprites.player)
 
-  if(isColliding(sprites.player, sprites.ground)) {
-    sprites.player.y = sprites.ground.y - sprites.player.height
-    sprites.player.vy = 0
-  }
-
-  if(isColliding(sprites.player, sprites.block)) {
-    sprites.player.y = sprites.block.y - sprites.player.height
-    sprites.player.vy = 0
-  }
-
-  if(isColliding(sprites.player, sprites.block2)) {
-    sprites.player.y = sprites.block2.y - sprites.player.height
-    sprites.player.vy = 0
-  }
+  enableCollision(sprites.player, sprites.ground)
+  enableCollision(sprites.player, sprites.block)
+  enableCollision(sprites.player, sprites.block2)
+  enableCollision(sprites.block, sprites.ground)
 
 }
 

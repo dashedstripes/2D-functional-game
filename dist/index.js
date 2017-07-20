@@ -97,10 +97,14 @@ function init(width, height) {
     ground: (0, _sprite.createSprite)(0, canvas.height - 100, canvas.width, 100, 0, '#2ecc71'),
     block: (0, _sprite.createSprite)(canvas.width / 2 - 100, canvas.height / 2 - 50, 50, 50, 0, 'yellow'),
     block2: (0, _sprite.createSprite)(canvas.width / 2 - 0, canvas.height / 2 + 60, 50, 50, 0, 'yellow'),
-    player: (0, _sprite.createSprite)(canvas.width / 2 - 10, canvas.height / 2 - 10, 10, 10, 5, '#e74c3c')
+    player: (0, _sprite.createSprite)(canvas.width / 2 - 10, 400 - 40, 10, 10, 5, '#e74c3c')
 
-    // Enable gravity on player
-  };sprites.player.physics = true;
+    // Disable rigidbody on sky
+  };sprites.sky.rigidBody = false;
+
+  // Enable gravity on player
+  // sprites.player.physics = true
+  // sprites.block.physics = true
 
   (0, _input.registerInputListeners)(sprites.player);
 
@@ -121,20 +125,10 @@ function update(context, sprites) {
 
   (0, _collision.enableCanvasBoundsCollision)(context, sprites.player);
 
-  if ((0, _collision.isColliding)(sprites.player, sprites.ground)) {
-    sprites.player.y = sprites.ground.y - sprites.player.height;
-    sprites.player.vy = 0;
-  }
-
-  if ((0, _collision.isColliding)(sprites.player, sprites.block)) {
-    sprites.player.y = sprites.block.y - sprites.player.height;
-    sprites.player.vy = 0;
-  }
-
-  if ((0, _collision.isColliding)(sprites.player, sprites.block2)) {
-    sprites.player.y = sprites.block2.y - sprites.player.height;
-    sprites.player.vy = 0;
-  }
+  (0, _collision.enableCollision)(sprites.player, sprites.ground);
+  (0, _collision.enableCollision)(sprites.player, sprites.block);
+  (0, _collision.enableCollision)(sprites.player, sprites.block2);
+  (0, _collision.enableCollision)(sprites.block, sprites.ground);
 }
 
 function render(context, sprites) {
@@ -196,7 +190,8 @@ function createSprite(x, y, width, height, speed, color) {
     width: width,
     height: height,
     color: color,
-    physics: false
+    physics: false,
+    rigidBody: true
   };
 }
 
@@ -346,6 +341,14 @@ function enableCanvasBoundsCollision(context, sprite) {
   }
 }
 
+function enableCollision(spriteA, spriteB) {
+
+  if (isColliding(spriteA, spriteB)) {
+    spriteA.vx = 0;
+    spriteA.vy = 0;
+  }
+}
+
 function isColliding(spriteA, spriteB) {
   if (spriteA.x <= spriteB.x + spriteB.width && spriteA.x + spriteA.width >= spriteB.x && spriteA.y <= spriteB.y + spriteB.height && spriteA.height + spriteA.y >= spriteB.y) {
     return true;
@@ -354,6 +357,7 @@ function isColliding(spriteA, spriteB) {
 
 module.exports = {
   enableCanvasBoundsCollision: enableCanvasBoundsCollision,
+  enableCollision: enableCollision,
   isColliding: isColliding
 };
 
