@@ -10,7 +10,7 @@ function init(width, height) {
   let sprites = {
     sky: createSprite(0, 0, canvas.width, canvas.height, 0, '#3498db'),
     ground: createSprite(0, canvas.height - 100, canvas.width, 100, 0, '#2ecc71'),
-    block: createSprite(canvas.width / 2 - 100, canvas.height / 2 - 50, 50, 50, 0, 'yellow'),
+    block: createSprite(canvas.width / 2 - 120, canvas.height / 2 + 10, 50, 50, 0, 'yellow'),
     block2: createSprite(canvas.width / 2 - 0, canvas.height / 2 + 60, 50, 50, 0, 'yellow'),
     player: createSprite(canvas.width / 2 - 10, 400 - 40, 10, 10, 5, '#e74c3c')
   }

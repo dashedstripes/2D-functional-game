@@ -95,7 +95,7 @@ function init(width, height) {
   var sprites = {
     sky: (0, _sprite.createSprite)(0, 0, canvas.width, canvas.height, 0, '#3498db'),
     ground: (0, _sprite.createSprite)(0, canvas.height - 100, canvas.width, 100, 0, '#2ecc71'),
-    block: (0, _sprite.createSprite)(canvas.width / 2 - 100, canvas.height / 2 - 50, 50, 50, 0, 'yellow'),
+    block: (0, _sprite.createSprite)(canvas.width / 2 - 120, canvas.height / 2 + 10, 50, 50, 0, 'yellow'),
     block2: (0, _sprite.createSprite)(canvas.width / 2 - 0, canvas.height / 2 + 60, 50, 50, 0, 'yellow'),
     player: (0, _sprite.createSprite)(canvas.width / 2 - 10, 400 - 40, 10, 10, 5, '#e74c3c')
 
@@ -190,7 +190,8 @@ function createSprite(x, y, width, height, speed, color) {
     height: height,
     color: color,
     physics: false,
-    rigidBody: true
+    rigidBody: true,
+    isJumping: false
   };
 }
 
@@ -246,7 +247,8 @@ var keys = {
   w: 87,
   a: 65,
   s: 83,
-  d: 68
+  d: 68,
+  space: 32
 };
 
 function registerInputListeners(sprite) {
@@ -259,9 +261,6 @@ function handleKeyDown(sprite, e) {
   keyDown = true;
 
   switch (e.keyCode) {
-    case keys.w:
-      sprite.vy = -sprite.speed;
-      break;
     case keys.a:
       sprite.vx = -sprite.speed;
       break;
@@ -271,6 +270,12 @@ function handleKeyDown(sprite, e) {
     case keys.d:
       sprite.vx = sprite.speed;
       break;
+    case keys.space:
+      if (!sprite.isJumping) {
+        sprite.isJumping = true;
+        sprite.vy = -sprite.speed * 0.7;
+      }
+      break;
   }
 }
 
@@ -278,9 +283,6 @@ function handleKeyUp(sprite, e) {
   keyDown = false;
 
   switch (e.keyCode) {
-    case keys.w:
-      sprite.vy = 0;
-      break;
     case keys.a:
       sprite.vx = 0;
       break;
@@ -327,6 +329,7 @@ function enableCollision(spriteA, spriteB) {
 
   if (isColliding(spriteA, spriteB)) {
     spriteA.y = spriteB.y - (spriteA.height + spriteA.vy / 100);
+    spriteA.isJumping = false;
   }
 }
 

@@ -11,7 +11,8 @@ function createSprite(x, y, width, height, speed, color) {
     height,
     color,
     physics: false,
-    rigidBody: true
+    rigidBody: true,
+    isJumping: false
   }
 }
 

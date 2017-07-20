@@ -22,6 +22,7 @@ function enableCollision(spriteA, spriteB) {
 
   if(isColliding(spriteA, spriteB)) {
     spriteA.y = spriteB.y - (spriteA.height + (spriteA.vy / 100))
+    spriteA.isJumping = false
   }
 
 }
