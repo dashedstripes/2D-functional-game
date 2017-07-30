@@ -1,5 +1,5 @@
 # 2D Game with functional JS
 
-An experiment to develop a 2D game using functional Javascript principles rather than Object Oriented Programming.
+An experiment to develop a 2D game using functional Javascript.
 
-This is the first time I've tried this out as I'm more used to OOP for games, I'm really enjoying working on this and it seems that functional programming is a lot easier to reason about for me.
+All functions are defined within `/src`. This project uses webpack to compile everything into a single file under `/dist`.
